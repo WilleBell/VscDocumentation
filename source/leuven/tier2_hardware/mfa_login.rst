@@ -93,84 +93,44 @@ explained in the next part.
 Authentication with an ssh agent
 --------------------------------
 
+.. note :: 
+
+   In the past we have provided our own in-house SSH agent, vscagent, but PuTTY
+   0.78< allows you to store a certificate as well. For this reason, we have
+   changed our official recommendation for an agent to the PuTTY agent.
+
 In order to circumvent the annoyance of multiple MFA prompts or connecting to
 the cluster with an ssh client before being able to use certain apps like FileZilla,
 you can use an agent. This agent will store a certificate that contains the
 identity verification you did when following the firewall link. This way, you
 will only be asked to verify your identity once. Of course this certificate
-does not live forever. When using the built-in ssh-agent of Linux and Mac this
-will be as long as your agent lives, and when using the vscagent this will be
-16h. There are two ways in which the certificates are stored in an agent:
+does not live forever. The certificate will only exist for as long as your agent lives.
 
-- Previously injected: the agent will automatically store the certificate when
-  you first connect to the cluster in the way as described above (built-in
-  ssh-agents for Mac and Linux, but also in a future release of Pageant on Windows).
-- Explicitly loaded in the agent: storing the certificate happens by opening
-  the UI of an agent, where you specifically ask to create a certificate. You
-  will be redirected to the firewall link to verify your identity (vscagent).
+For all agents, you first need to connect to the cluster from a terminal, or an appropriate
+SSH client, in the way as described above, after which the certificate will automatically
+be stored in the agent.
 
-.. note ::
+To adopt any of these methods, read the following parts. The method you can use varies based on your OS.
 
-   We provide an in-house developed `vscagent` as a temporary solution to have
-   an ssh agent on Windows that supports storing a certificate. We expect that
-   Pageant will support this as well in their future official release. Once we
-   can confirm this support, we will adapt our official recommendation to
-   Pageant instead of vscagent. This documentation will be adapted accordingly
-   and you will also be informed about this change.
-
-To adopt any of these methods, read the following parts. The methods you can use varies based on your OS.
-
+.. _agent_windows:   
 Authentication with an agent on Windows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For MS-Windows systems, `vscagent` is available to serve as ssh agent. It
-can be started and set up as follows:
+For MS-Windows systems, the PuTTY agent (Pageant) is the recommended agent to use. You should download 
+`the latest PuTTY release`_ or at least version 0.78 if you plan on using an older version. For users
+with a KU Leuven laptop, this version should be available in your software center. 
 
-#. Visit the `vscagent`_ web page and download the file `vscagent.exe`
-#. If you have a centrally managed KU Leuven laptop, you should copy the
-   `vscagent.exe` in your `C:\\temp` folder and run it from there (create the
-   folder if it does not exist on your system yet). For other machines, place
-   it in a directory of your choice. Double click the file to start the agent.
-#. Go to the `Configuration` tab:
+There are two methods to store your **key** in Pageant. In both cases the key will only be stored for as long as the agent is running.
 
-   - For most users, the 'Enable KU Leuven server certificates' should be left **unchecked**. You should only check it and fill it in when you satisfy the next two conditions:
+#. Open PuTTY and start your saved session, with the path to your key stored under 'Connection-SSH-Auth-Credentials'. Once you connect using the standard method, your key will be stored in Pageant.
+#. Be sure Pageant is started, go to your system tray, right-click the Pageant symbol and select 'Add Key'. Add the key you want to use. 
 
-     #. You are a KU Leuven user
-     #. You already use the KU Leuven server certificate. You are probably already using CertAgent in that case. Be aware that you can still keep using CertAgent next to the vscagent. You can add your credentials in the vscagent if you would prefer using only one agent. **If you have no idea what this means, you should skip the next step.**
+To effectively store your certificate, you need to connect to the cluster first. You can do this by connecting
+through PuTTY, but other SSH clients like MobaXTerm, if configured correctly, can do this too
+(see :ref:`Configuration of ssh-clients and UI apps<mfa_client_config>` for the correct set-up). If you want to use
+this method, you need to store the key in Pageant first though. 
 
-     If you have satisfied the previous two conditions and you would like to store your KU Leuven server certificate in your vscagent, check the 'Enable KU Leuven server certificates'. Otherwise proceed to the next step. Fill in the fields as follows:
-
-        - Principals: uXXXXXX  
-        - Role: kuleuven
-        - TTL : 16h
-
-   - check `Enable HPC user certificates`
-   - check `tier2-leuven`. Only select `tier1-leuven` as well if you have
-     access to breniac (which is not the case for most users).
-   - Username : `vscXXXXX`
-   - The configuration should look as follows (obviously changing the username
-     to your own):
-
-   .. _vscagent-configuration:
-   .. figure:: mfa_login/vscagent_configuration.png
-      :align: center
-      :alt: vscagent-configuration
-   - Click on `Apply settings` and `Save configuration file`
-
-#. Go to the `SSH Key files` tab
-
-   - Click on the plus sign and navigate to your private VSC key.
-
-#. Go to the `SSH identities` tab
-
-   - click `Renew certificate`
-   - Select `HPC Tier2 Leuven certificate` for the certificate for the Tier2
-     cluster
-   - If you are storing your KU Leuven server certificate in this agent as
-     well, you can also renew the `KU Leuven server certificate`
-
-The agent will automatically open the firewall link in your browser. Here you
-can verify your identity. You are now able to connect to the cluster using any
+Once the certificate is stored, you should be able to connect to the cluster using any
 ssh-client or with GUI apps like NX and FileZilla.
 
 .. note::
@@ -296,6 +256,7 @@ what to do for MobaXTerm, PuTTY and NX:
   - Select the 'Advanced SSH settings' tab
   - Uncheck 'Use private key' if selected
   - click 'Ok'
+  - If you want to be able to store the certificate directly by connecting through MobaXTerm, be sure that 'Use external Pageant' is checked. You of course still need to store the key in your Pageant first, as explained under :ref:`Authentication with an agent on Windows<agent_windows>`.
     
 - PuTTY
 
@@ -328,10 +289,8 @@ Known issues - General remarks
   with the MFA link every time when connecting to the cluster.
 - Safari does not properly load the vscagent download page. 
 - Some ssh-clients have their own built-in agents that can prompt you the
-  firewall link. You are free to use these instead of the vscagent as well.
-  Be aware that Pageant (PuTTY agent) does not support this for the moment.
-  If this would become standard practice in the future, we might adopt these
-  as default agents instead of the vscagent.
+  firewall link. You are free to use these instead of agent as well.
 
 .. _VSC firewall page: https://firewall.vscentrum.be
 .. _vscagent: https://firewall.vscentrum.be/vscagent/latest/
+.. _latest PuTTY release: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
