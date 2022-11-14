@@ -51,12 +51,20 @@ subsequent steps to set it up. The different set-ups are:
 
 Windows machines
 ~~~~~~~~~~~~~~~~
-#. For the Windows machines, download the vscagent.exe from https://firewall.vscentrum.be/vscagent/latest/. You will be asked to log in with the credentials of your university or institution. Then you will to be able to download it.
 
-   .. _vscagent_download:
-   .. figure:: mfa_quickstart/vscagent_download.PNG
-      :align: left
-      :alt: vscagent_download
+.. note::
+   In the past the recommended method was to use the vscagent, an agent developed by our team. From version 0.78 on, the PuTTY agent also
+   supports storing a certificate. There are some clear benefits of using an app that has continuous support and regular releases, so for
+   that reason our official recommendation switched to using PuTTY instead of our own vscagent.
+   
+#. For Windows machines, download the  `latest PuTTY release`_ from the official website. If for some reason you want to use an older version, be sure to use at least version 0.78. If you are using a KU Leuven laptop, you can also download the latest version from the software center.
+
+#. Run PuTTY and/or Pageant. First of all, you need to store your key in Pageant. There are two methods:
+- Store your key path in your PuTTY profile under 'Connection-SSH-Auth-Credentials', once you connect to the cluster with PuTTY, your key will be stored
+- Store the key directly in Pageant: look for the Pageant symbol in your system tray, right-click and select 'Add Key'
+
+
+
 #. This exe file can be run directly. If you have a KU Leuven central managed laptop, place it in C:\temp (running it from other locations won’t work). If you have another machine, place it on a location of your choice. Run the application.
 
    .. _vscagent_app:
@@ -169,4 +177,5 @@ NX
    .. figure:: mfa_quickstart/nx_mod.PNG
       :align: center
       :alt: nx_mod
-         
+
+.. _latest PuTTY release: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
