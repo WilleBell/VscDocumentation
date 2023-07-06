@@ -31,6 +31,7 @@ Running Matlab is best done from a compute node. Request an interactive job with
 Now you will can load your preferred Matlab module:
 
 ::
+
     $ module load <matlab_module>
 
 We have Matlab modules available for wICE (in the 2021a toolchain) and for Genius (in the 2021a and 2018a toolchain).
@@ -39,6 +40,7 @@ Now, start Matlab and use the function  `configCluster` to set up the cluster pr
 cluster', basically meaning that it will only detect the cores on the node you are currently on. 
 
 ::
+
     $ matlab -nodisplay          # this will avoid launching the GUI, but you can do this if you prefer (slow)
     $ # Within Matlab
     $ >> configCluster;
@@ -47,11 +49,13 @@ There is a range of additional properties that you can set on the cluster profil
 profile:
 
 :: 
+
     $ c=parcluster;
 
 You can then view and edit the additional properties:
 
 ::
+
     $ # Access
     $ c.AdditionalProperties     
     $
@@ -65,6 +69,7 @@ to a location in your `$VSC_HOME`. If you are producing a lot of output, it migh
 the other cluster profile parameters can be done as follows:
 
 ::
+
     $ # Access
     $ c.JobStorageLocation = '</path/to/your/custom/jobdir>'
 
@@ -72,6 +77,7 @@ Both after changing any of the additional properties or the standard parameters,
 session:
 
 ::
+
     $ c.saveProfile;
 
 
