@@ -16,7 +16,7 @@ Welcome to VSC documentation
    software/software_development
    hardware
    globus/globus_main_index
-   data/tier1_data_main_index
+   tier1data/index.rst
    faq
 
 Feel free to contact :ref:`user support <user support VSC>`.
