@@ -90,7 +90,8 @@ Install Miniconda
 ~~~~~~~~~~~~~~~~~
 
 If you have Miniconda already installed, you can skip ahead to the next
-section, if Miniconda is not installed, we start with that. Download the
+section. If the cluster you are using has a Miniconda module, you can load it and
+skip to the next section. If Miniconda is not installed, we start with that. Download the
 Bash script that will install it from `conda.io <https://conda.io/>`_
 using, e.g., ``wget``::
 
