@@ -119,17 +119,3 @@ Two command line options are involved in this process:
    This may not be what you (and your mail system administrator) want.  Unless
    you really need a notification when your job starts, we would suggest to
    only use ``-m ea``.
-
-
-Other options
--------------
-
-This page describes the most used options in their most common use
-cases. There are however more parameters for resource specification and
-other options that can be used. For advanced users who want to know
-more, we refer to the documentation of the ``qsub`` command that
-mentions all options in the Torque manual on the `Adaptive Computing
-documentation`_.
-
--  `Torque 6.0.1 documentation`_
-
