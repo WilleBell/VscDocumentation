@@ -139,8 +139,9 @@ is equivalent with the line::
 
 The same holds when using ``-l`` on the command line for ``qsub``.
 
+Requesting GPUs
+---------------
 
-.. _gpus_torque:
-
-.. include:: gpus.rst
-
+It is possible to request one or more GPUs for your job.
+For usage instructions, please consult the following documentation:
+Tier-1 Hortense: :ref:`tier1_request_gpus`
