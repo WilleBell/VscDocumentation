@@ -60,7 +60,6 @@ of the more important ones are:
 -  ``PBS_JOBID`` : The unique jobid. This is very useful when
    constructing, e.g., unique file names.
 -  ``PBS_NUM_NODES`` : The number of nodes you requested.
--  ``PBS_NUM_PPN`` : The number of cores per node requested.
 -  ``PBS_NP`` : The total number of cores requested.
 -  ``PBS_NODEFILE`` : This variable is used by several MPI
    implementation to get the node list from the resource manager when
@@ -78,11 +77,6 @@ further down this page.
    physically distinct nodes. As the job script executes on the first
    core of the allocation, its value will always be 0 in your job
    script.
--  ``PBS_VNODENUM`` : The number of the physical core or hyperthread in
-   your allocation. The numbering continues across the nodes in the
-   allocation, so in case of a job started with ``-l nodes=3:ppn=5``,
-   ``$PBS_VNODENUM`` will be a number between 0 and 14 (0 and 14
-   included). In your job script, its value will be 0.
 -  ``PBS_TASKNUM`` : Number of the task. The numbering starts from 1 but
    continues across calls of ``pbsdsh``. The login script runs with
    ``PBS_TASKNUM`` set to 1. The first call to ``pbsdsh`` will start its
@@ -248,10 +242,6 @@ numbers of nodes and cores-per-node using
 ``qsub``, it will return a job number, and when the job ends you will
 find a file testscript.pbs.o<jobid> in the directory where
 you executed ``qsub``.
-
-For more information on the pbsdsh command, check the manual page
-(``man pbsdsh``), or refer to the the Torque
-manual on the `Adaptive Computing documentation`_ web site.
 
 -  `Torque 6.0.1 documentation`_
 
