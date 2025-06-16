@@ -156,8 +156,3 @@ Advanced topics
    cluster scheduler isn't
    meant to deal with tons of small jobs. Those create a lot of
    overhead, so it is better to bundle those jobs in larger sets.
--  The :ref:`checkpointing framework` can be used to run programs that take
-   longer than the maximum time
-   allowed by the queue. It can break a long job in shorter jobs, saving
-   the state at the end to automatically start the next job from the
-   point where the previous job was interrupted.
